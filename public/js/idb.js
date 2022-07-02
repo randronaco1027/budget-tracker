@@ -57,3 +57,5 @@ function uploadBudget() {
         }
     }
 }
+
+window.addEventListener('online', uploadBudget)
