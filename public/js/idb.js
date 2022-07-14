@@ -19,7 +19,8 @@ request.onerror = function(event) {
     console.log(event.target.errorCode)
 }
 
-function saveBudget(budget) {
+// Add transactions to budget
+function saveRecord(budget) {
     const transaction = db.transaction(['new_amount'], 'readwrite')
 
     const amountObjectStore = transaction.objectStore('new_amount')
@@ -27,6 +28,7 @@ function saveBudget(budget) {
     amountObjectStore.add(budget)
 }
 
+// If there are items to cache, post to API
 function uploadBudget() {
     const transaction = db.transaction(['new_amount'], 'readwrite')
 
@@ -50,7 +52,7 @@ function uploadBudget() {
                     throw new Error(serverResponse)
                 }
 
-                const transaction = db.transaction('[new_amount', 'readwrite')
+                const transaction = db.transaction(["new_budget"], 'readwrite');
 
                 amountObjectStore.clear()
             })
@@ -58,4 +60,5 @@ function uploadBudget() {
     }
 }
 
+// Wait for app to come back online
 window.addEventListener('online', uploadBudget)

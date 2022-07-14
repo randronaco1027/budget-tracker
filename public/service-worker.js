@@ -1,6 +1,7 @@
 const APP_PREFIX = 'Budget-';
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION
+// Cache all files in public
 const FILES_TO_CACHE = [
     "/index.html",
     "/css/styles.css",
@@ -17,6 +18,7 @@ const FILES_TO_CACHE = [
     "/icons/icon-512x512.png",
 ];
 
+// Fetch data, alert if not cached
 self.addEventListener('fetch', function (e) {
     console.log('fetch request : ' + e.request.url)
     e.respondWith(
@@ -32,6 +34,7 @@ self.addEventListener('fetch', function (e) {
     )
 })
 
+// Install and pre-cache
 self.addEventListener('install', function (evt) {
     evt.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
@@ -42,6 +45,7 @@ self.addEventListener('install', function (evt) {
     self.skipWaiting()
 })
 
+// Delete outdated caches
 self.addEventListener('activate', function (e) {
     e.waitUntil(
         caches.keys().then(function (keyList) {
